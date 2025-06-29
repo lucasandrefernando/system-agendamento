@@ -1,0 +1,10 @@
+# Habilita o módulo de reescrita
+RewriteEngine On
+
+# Se o arquivo solicitado não existir, redireciona para index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [QSA,L]
+
+# Previne listagem de diretórios
+Options -Indexes

@@ -1,0 +1,17 @@
+{
+  "name": "sistema/agendamento-veiculos",
+  "description": "Sistema de Agendamento de Veículos",
+  "type": "project",
+  "require": {
+    "php": ">=7.4",
+    "vlucas/phpdotenv": "^5.5",
+    "altorouter/altorouter": "^2.0",
+    "nesbot/carbon": "^2.0"
+  },
+  "autoload": {
+    "classmap": [
+      "app/controllers/",
+      "app/models/"
+    ]
+  }
+}
