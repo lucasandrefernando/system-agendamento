@@ -1,6 +1,6 @@
 <?php
 
-//teste mais uma vez que saco não funcionou
+//teste mais uma vez que saco não funcionou afff
 // Configuração de erro para depuração
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
