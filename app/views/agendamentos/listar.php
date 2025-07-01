@@ -64,71 +64,72 @@
             </div>
         <?php else: ?>
             <div class="table-responsive">
-                <table id="tabela-agendamentos" class="table table-striped table-hover">
+                <table class="table table-striped table-hover">
                     <thead>
                         <tr>
+                            <th>ID</th>
                             <th>Veículo</th>
                             <th>Empreiteira</th>
                             <th>Tipo</th>
                             <th>Data/Hora</th>
-                            <th>Identificador</th>
+                            <th>Duração</th>
                             <th>Confirmado</th>
-                            <th>Criado por</th>
-                            <th width="120">Ações</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($agendamentos as $agendamento): ?>
-                            <tr>
-                                <td><?= htmlspecialchars($agendamento['veiculo']) ?></td>
-                                <td><?= htmlspecialchars($agendamento['empreiteira']) ?></td>
-                                <td>
-                                    <?php
-                                    $tipoClasses = [
-                                        'AGENDADO' => 'success',
-                                        'EMERGENCIAL' => 'danger',
-                                        'REAGENDADO' => 'warning'
-                                    ];
-                                    $tipoClass = $tipoClasses[$agendamento['tipo']] ?? 'secondary';
-                                    ?>
-                                    <span class="badge bg-<?= $tipoClass ?>">
-                                        <?= htmlspecialchars($agendamento['tipo']) ?>
-                                    </span>
-                                </td>
-                                <td>
-                                    <?= date('d/m/Y H:i', strtotime($agendamento['data_agendamento'])) ?>
-                                </td>
-                                <td><?= htmlspecialchars($agendamento['identificador']) ?></td>
-                                <td>
-                                    <?php if ($agendamento['confirmacao']): ?>
-                                        <span class="badge bg-success">Sim</span>
-                                    <?php else: ?>
-                                        <span class="badge bg-secondary">Não</span>
-                                    <?php endif; ?>
-                                </td>
-                                <td>
-                                    <?= htmlspecialchars($agendamento['nome_usuario'] ?? 'N/A') ?>
-                                </td>
-                                <td>
-                                    <div class="btn-group btn-group-sm">
-                                        <?php if ($_SESSION['usuario_tipo'] === 'admin' || ($_SESSION['usuario_tipo'] === 'medio' && $agendamento['usuario_id'] == $_SESSION['usuario_id'])): ?>
-                                            <a href="/projeto-agendamento/public/agendamentos/editar/<?= $agendamento['id'] ?>" class="btn btn-outline-primary" title="Editar">
+                        <?php if (isset($agendamentos) && count($agendamentos) > 0): ?>
+                            <?php foreach ($agendamentos as $agendamento): ?>
+                                <tr>
+                                    <td><?= $agendamento['id'] ?></td>
+                                    <td><?= htmlspecialchars($agendamento['veiculo']) ?></td>
+                                    <td><?= htmlspecialchars($agendamento['empreiteira']) ?></td>
+                                    <td>
+                                        <span class="badge <?= $agendamento['tipo'] === 'AGENDADO' ? 'bg-success' : ($agendamento['tipo'] === 'EMERGENCIAL' ? 'bg-danger' : 'bg-warning') ?>">
+                                            <?= htmlspecialchars($agendamento['tipo']) ?>
+                                        </span>
+                                    </td>
+                                    <td><?= date('d/m/Y H:i', strtotime($agendamento['data_agendamento'])) ?></td>
+                                    <td>
+                                        <?php
+                                        $duracao = intval($agendamento['duracao'] ?? 30);
+                                        $horas = floor($duracao / 60);
+                                        $minutos = $duracao % 60;
+
+                                        if ($horas > 0) {
+                                            echo $horas . 'h';
+                                            if ($minutos > 0) {
+                                                echo ' ' . $minutos . 'min';
+                                            }
+                                        } else {
+                                            echo $minutos . 'min';
+                                        }
+                                        ?>
+                                    </td>
+                                    <td>
+                                        <?php if ($agendamento['confirmacao']): ?>
+                                            <span class="badge bg-success">Sim</span>
+                                        <?php else: ?>
+                                            <span class="badge bg-secondary">Não</span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group btn-group-sm">
+                                            <a href="/projeto-agendamento/public/agendamentos/editar/<?= $agendamento['id'] ?>" class="btn btn-outline-primary">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                        <?php endif; ?>
-
-                                        <?php if ($_SESSION['usuario_tipo'] === 'admin'): ?>
-                                            <button type="button" class="btn btn-outline-danger btn-excluir"
-                                                data-id="<?= $agendamento['id'] ?>"
-                                                data-veiculo="<?= htmlspecialchars($agendamento['veiculo']) ?>"
-                                                title="Excluir">
+                                            <button type="button" class="btn btn-outline-danger btn-excluir" data-id="<?= $agendamento['id'] ?>">
                                                 <i class="fas fa-trash"></i>
                                             </button>
-                                        <?php endif; ?>
-                                    </div>
-                                </td>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="8" class="text-center">Nenhum agendamento encontrado.</td>
                             </tr>
-                        <?php endforeach; ?>
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>

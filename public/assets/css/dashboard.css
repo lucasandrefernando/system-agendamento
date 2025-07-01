@@ -1,0 +1,641 @@
+/* =====================================================================
+   DASHBOARD STYLES
+   ===================================================================== */
+
+/* 1. LAYOUT GERAL
+   ===================================================================== */
+.tab-content {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-top: none;
+    border-radius: 0 0 0.25rem 0.25rem;
+    padding: 1.5rem;
+}
+
+.nav-tabs .nav-link {
+    padding: 0.75rem 1.25rem;
+    font-weight: 500;
+    color: #495057;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: #f8f9fa;
+    border-bottom-color: #f8f9fa;
+    color: #0d6efd;
+    font-weight: 600;
+}
+
+/* 2. FILTROS E CONTROLES
+   ===================================================================== */
+.filtro-container {
+    background-color: #f8f9fa;
+    transition: all 0.3s ease;
+}
+
+.filtro-heading {
+    color: #495057;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.filtro-separador {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-weight: 500;
+    color: #6c757d;
+}
+
+/* Badge para período atual */
+.bg-primary-soft {
+    background-color: rgba(13, 110, 253, 0.15);
+    color: #0d6efd;
+    font-weight: 500;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+}
+
+/* Estilos para o filtro atual */
+#filtro-atual {
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+#filtro-atual.filtro-ativo {
+    color: #0d6efd;
+}
+
+/* Estilos para os botões de período */
+.btn-outline-primary {
+    border-color: #d2e3fc;
+    color: #0d6efd;
+}
+
+.btn-outline-primary:hover {
+    background-color: #e9f0ff;
+    border-color: #0d6efd;
+    color: #0d6efd;
+}
+
+.btn-outline-primary.active {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: #fff;
+}
+
+/* Botões de duração */
+.btn-group .btn-outline-primary {
+    border-color: #d2e3fc;
+    color: #0d6efd;
+}
+
+.btn-group .btn-outline-primary:hover,
+.btn-group .btn-outline-primary.active {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: white;
+}
+
+/* Melhorias nos campos de data */
+.datepicker {
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.datepicker:focus {
+    background-color: #fff;
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Botão limpar filtro */
+#btn-limpar-filtro {
+    border-color: #ced4da;
+}
+
+#btn-limpar-filtro:hover {
+    background-color: #f8f9fa;
+    color: #dc3545;
+}
+
+/* 3. CARDS E INDICADORES
+   ===================================================================== */
+.dashboard-card {
+    transition: transform 0.2s;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.dashboard-icon {
+    font-size: 1.75rem;
+    opacity: 0.8;
+}
+
+/* 4. CALENDÁRIO
+   ===================================================================== */
+/* Estilos básicos do calendário */
+.fc-day {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.fc-day:hover {
+    background-color: rgba(13, 110, 253, 0.1) !important;
+}
+
+.fc-day-today {
+    background-color: rgba(13, 110, 253, 0.15) !important;
+}
+
+.fc-event {
+    cursor: pointer;
+}
+
+/* Dia selecionado no calendário */
+.dia-selecionado {
+    background-color: rgba(13, 110, 253, 0.25) !important;
+    box-shadow: inset 0 0 0 2px #0d6efd !important;
+}
+
+/* Indicador de eventos */
+.dia-com-eventos {
+    position: relative;
+}
+
+.evento-indicador {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: #0d6efd;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dia-emergencial .evento-indicador {
+    background-color: #dc3545;
+}
+
+.dia-reagendado .evento-indicador {
+    background-color: #fd7e14;
+}
+
+.dia-hoje {
+    font-weight: bold;
+}
+
+/* Estilos para destacar o período filtrado */
+.periodo-filtrado {
+    background-color: rgba(13, 110, 253, 0.05) !important;
+    position: relative;
+}
+
+.data-inicio-filtro {
+    background-color: rgba(13, 110, 253, 0.15) !important;
+    border-left: 3px solid #0d6efd !important;
+}
+
+.data-fim-filtro {
+    background-color: rgba(13, 110, 253, 0.15) !important;
+    border-right: 3px solid #0d6efd !important;
+}
+
+.data-hoje-filtro {
+    background-color: rgba(13, 110, 253, 0.2) !important;
+    box-shadow: inset 0 0 0 2px rgba(13, 110, 253, 0.5) !important;
+}
+
+/* Indicador visual para o período filtrado */
+.periodo-filtrado::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: rgba(13, 110, 253, 0.3);
+}
+
+.periodo-filtrado::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: rgba(13, 110, 253, 0.3);
+}
+
+/* 5. HORÁRIOS DISPONÍVEIS
+   ===================================================================== */
+/* Estilos básicos para horários */
+.disponibilidade-horarios .btn {
+    margin-bottom: 5px;
+    font-size: 0.85rem;
+}
+
+/* Container de horários */
+.horarios-container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+}
+
+.horarios-header {
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+}
+
+/* Períodos (manhã/tarde) */
+.periodo-container {
+    margin-bottom: 20px;
+}
+
+.periodo-titulo {
+    color: #495057;
+    font-weight: 600;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dashed #e9ecef;
+}
+
+/* Grid de horários */
+.horarios-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+/* Itens de horário */
+.horario-item {
+    border-radius: 6px;
+    padding: 10px;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.horario-disponivel {
+    background-color: #e9f7ef;
+    border: 1px solid #28a745;
+    cursor: pointer;
+}
+
+.horario-disponivel:hover {
+    background-color: #d4edda;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.horario-ocupado {
+    background-color: #f8d7da;
+    border: 1px solid #dc3545;
+    opacity: 0.8;
+}
+
+.horario-tempo {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.horario-status {
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+.horario-disponivel .horario-status {
+    color: #28a745;
+}
+
+.horario-ocupado .horario-status {
+    color: #dc3545;
+}
+
+/* Linha do tempo de horários */
+.timeline-container {
+    position: relative;
+    height: 80px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.timeline-header {
+    padding: 4px 10px;
+    font-size: 0.7rem;
+    color: #6c757d;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.timeline-body {
+    position: relative;
+    height: 50px;
+    padding: 10px 0;
+}
+
+.timeline-slot {
+    position: absolute;
+    height: 30px;
+    top: 10px;
+    border-radius: 4px;
+    padding: 2px 4px;
+    font-size: 0.7rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.timeline-slot:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.timeline-slot-disponivel {
+    background-color: rgba(25, 135, 84, 0.2);
+    border: 1px solid rgba(25, 135, 84, 0.5);
+    color: #198754;
+}
+
+.timeline-slot-ocupado {
+    background-color: rgba(220, 53, 69, 0.2);
+    border: 1px solid rgba(220, 53, 69, 0.5);
+    color: #dc3545;
+}
+
+.timeline-slot-time {
+    font-weight: bold;
+}
+
+/* 6. FORMULÁRIO DE AGENDAMENTO
+   ===================================================================== */
+/* Container do formulário */
+#form-agendamento {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 25px;
+}
+
+#form-agendamento .form-label {
+    font-weight: 500;
+    color: #495057;
+}
+
+#form-agendamento .btn-primary {
+    padding: 10px 20px;
+    font-weight: 500;
+}
+
+/* Seção de data */
+.data-agendamento-container {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.data-agendamento-container .flatpickr-input {
+    background-color: #fff;
+}
+
+/* Seleção de horários */
+.horarios-selecao {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.horario-radio {
+    padding: 10px;
+    border-radius: 6px;
+    margin: 0;
+    transition: all 0.2s ease;
+}
+
+.horario-radio.disponivel {
+    background-color: #e9f7ef;
+    border: 1px solid #28a745;
+}
+
+.horario-radio.ocupado {
+    background-color: #f8d7da;
+    border: 1px solid #dc3545;
+    opacity: 0.7;
+}
+
+.horario-radio label {
+    width: 100%;
+    text-align: center;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.horario-radio.disponivel:hover {
+    background-color: #d4edda;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.horario-radio input {
+    margin-right: 5px;
+}
+
+/* Seletor de duração */
+.form-select {
+    cursor: pointer;
+}
+
+/* 7. GRÁFICOS
+   ===================================================================== */
+canvas {
+    max-width: 100%;
+}
+
+/* 8. RESPONSIVIDADE
+   ===================================================================== */
+@media (max-width: 991.98px) {
+    .filtro-container {
+        padding: 1rem;
+    }
+
+    .filtro-separador {
+        margin: 0.5rem 0;
+        justify-content: start;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .horarios-grid,
+    .horarios-selecao {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .dashboard-card .card-body {
+        padding: 0.75rem;
+    }
+
+    .dashboard-card h3 {
+        font-size: 1.5rem;
+    }
+
+    .dashboard-icon {
+        font-size: 1.5rem;
+    }
+
+    .nav-tabs .nav-link {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
+    }
+
+    .tab-content {
+        padding: 1rem;
+    }
+
+    .bg-primary-soft {
+        display: block;
+        margin-bottom: 0.5rem;
+        text-align: left;
+    }
+}
+
+@media (max-width: 576px) {
+
+    .horarios-grid,
+    .horarios-selecao {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Estilos para o calendário simplificado */
+.fc-daygrid-day {
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.fc-daygrid-day:hover {
+    background-color: rgba(13, 110, 253, 0.1);
+}
+
+/* Dia selecionado */
+.dia-selecionado {
+    background-color: rgba(13, 110, 253, 0.2) !important;
+    box-shadow: inset 0 0 0 2px #0d6efd;
+}
+
+/* Dia atual */
+.dia-hoje {
+    background-color: rgba(255, 193, 7, 0.2) !important;
+    font-weight: bold;
+}
+
+/* Dias com eventos */
+.dia-com-eventos {
+    position: relative;
+}
+
+/* Badge para indicar quantidade de eventos */
+.evento-badge {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background-color: #0d6efd;
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* Limitar altura do calendário */
+#calendario-agendamentos {
+    max-height: 500px;
+    overflow: visible;
+}
+
+/* Estilos para os horários disponíveis */
+.horarios-container {
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.periodo-titulo {
+    color: #495057;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+    border-bottom: 1px dashed #e9ecef;
+}
+
+/* Botões de horário */
+.btn-outline-success {
+    border-color: #28a745;
+    color: #28a745;
+}
+
+.btn-outline-success:hover {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-outline-secondary {
+    opacity: 0.7;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    #calendario-agendamentos {
+        max-height: 400px;
+    }
+
+    .fc-daygrid-day-number {
+        font-size: 0.9rem;
+    }
+
+    .evento-badge {
+        width: 16px;
+        height: 16px;
+        font-size: 9px;
+    }
+}
+
+/* Estilos para o período selecionado no calendário */
+.dia-periodo {
+    background-color: rgba(13, 110, 253, 0.1) !important;
+}
+
+.dia-periodo-inicio {
+    background-color: rgba(13, 110, 253, 0.2) !important;
+    border-left: 2px solid #0d6efd !important;
+}
+
+.dia-periodo-fim {
+    background-color: rgba(13, 110, 253, 0.2) !important;
+    border-right: 2px solid #0d6efd !important;
+}
+
+.dia-selecionado {
+    background-color: rgba(13, 110, 253, 0.25) !important;
+    box-shadow: inset 0 0 0 2px #0d6efd !important;
+}

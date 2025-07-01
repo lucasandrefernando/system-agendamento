@@ -1,0 +1,23 @@
+name: 🚀 Deploy via FTP (KingHost)
+
+on:
+  push:
+    branches:
+      - main # ou 'producao', se essa for a sua branch
+
+jobs:
+  ftp-deploy:
+    name: 🔄 Enviar arquivos via FTP
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🔽 Clonar repositório
+        uses: actions/checkout@v3
+
+      - name: 📤 Enviar via FTP para KingHost
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ftp.anacron.com.br
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          server-dir: /public_html/
