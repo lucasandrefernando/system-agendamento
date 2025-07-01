@@ -1,18 +1,22 @@
 <?php
+
+//TESTANDO...
+// Carregar variáveis de ambiente
+require_once __DIR__ . '/../env.php';
+
 // Configuração de erro para depuração
-
-// TESTANDO PARA VER SE ESTA TUDO OK.... 
-
-
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ini_set('display_errors', env('APP_DEBUG', false) ? 1 : 0);
+
+// Definir o caminho base do projeto
+define('BASE_PATH', '/');
 
 // Carregamento dos arquivos necessários
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../app/models/Usuario.php';
 require_once __DIR__ . '/../app/models/Agendamento.php';
 require_once __DIR__ . '/../app/models/Estatisticas.php';
-require_once __DIR__ . '/../app/models/Horarios.php'; // Novo modelo
+require_once __DIR__ . '/../app/models/Horarios.php';
 require_once __DIR__ . '/../app/controllers/AuthController.php';
 require_once __DIR__ . '/../app/controllers/HomeController.php';
 require_once __DIR__ . '/../app/controllers/AgendamentoController.php';
@@ -24,13 +28,28 @@ session_start();
 
 // Implementação básica do roteamento
 $uri = $_SERVER['REQUEST_URI'];
-$baseUri = '/projeto-agendamento/public';
-$uri = str_replace($baseUri, '', $uri);
-$method = $_SERVER['REQUEST_METHOD'];
 
-// Se a URI estiver vazia, redireciona para a raiz
+// Remover a query string da URI, se existir
+if (($pos = strpos($uri, '?')) !== false) {
+    $uri = substr($uri, 0, $pos);
+}
+
+// Remover barras duplicadas e barras no final
+$uri = rtrim(preg_replace('#/+#', '/', $uri), '/');
+
+// Se a URI estiver vazia, definir como raiz
 if ($uri == '') {
     $uri = '/';
+}
+
+// Método da requisição
+$method = $_SERVER['REQUEST_METHOD'];
+
+// Função para redirecionar com o caminho base
+function redirect($path)
+{
+    header('Location: ' . BASE_PATH . ltrim($path, '/'));
+    exit;
 }
 
 // Middleware de autenticação
@@ -39,7 +58,7 @@ function checkAuth($uri)
     $publicRoutes = ['/', '/login'];
 
     if (!isset($_SESSION['usuario_id']) && !in_array($uri, $publicRoutes)) {
-        header('Location: /projeto-agendamento/public/');
+        redirect('');
         exit;
     }
 }
@@ -96,7 +115,7 @@ if ($uri === '/agendamentos/criar' && $method === 'POST') {
     $controller = new DashboardController();
     $controller->atualizarDisponibilidade();
     $routeFound = true;
-} elseif ($uri === '/') {
+} elseif ($uri === '/' || $uri === '') {
     $controller = new AuthController();
     $controller->loginForm();
     $routeFound = true;
@@ -110,7 +129,7 @@ if ($uri === '/agendamentos/criar' && $method === 'POST') {
     $controller = new DashboardController();
     $controller->index();
     $routeFound = true;
-} elseif ($uri === '/dashboard/dados-filtrados' || preg_match('#^/dashboard/dados-filtrados\?.*$#', $uri)) {
+} elseif ($uri === '/dashboard/dados-filtrados') {
     checkAuth($uri);
     $controller = new DashboardController();
     $controller->dadosFiltrados();
@@ -125,17 +144,12 @@ if ($uri === '/agendamentos/criar' && $method === 'POST') {
     $controller = new DashboardController();
     $controller->horariosDisponiveis();
     $routeFound = true;
-} elseif (preg_match('/^\/dashboard\/horarios-disponiveis/', $uri)) {
-    checkAuth($uri);
-    $controller = new DashboardController();
-    $controller->horariosDisponiveis();
-    $routeFound = true;
 } elseif ($uri === '/agendamentos') {
     checkAuth($uri);
     $controller = new AgendamentoController();
     $controller->listar();
     $routeFound = true;
-} elseif (preg_match('#^/agendamentos/criar(\?.*)?$#', $uri) && $method === 'GET') {
+} elseif (preg_match('#^/agendamentos/criar$#', $uri) && $method === 'GET') {
     checkAuth($uri);
     $controller = new AgendamentoController();
     $controller->criarForm();
