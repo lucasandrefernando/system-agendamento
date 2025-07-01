@@ -1,4 +1,6 @@
 <?php
+
+echo "hello word!";
 // Carregar variáveis de ambiente
 require_once __DIR__ . '/../env.php';
 
