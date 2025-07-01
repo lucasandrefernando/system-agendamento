@@ -1,5 +1,9 @@
 <?php
 // Configuração de erro para depuração
+
+// TESTANDO PARA VER SE ESTA TUDO OK.... 
+
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
